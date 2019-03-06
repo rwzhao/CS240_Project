@@ -16,8 +16,8 @@ mkdir log
 
 python3 train.py -data datasets/webnlg_tensor -save_model webnlg_model/webnlg-model \
    -gpu_ranks 0 \
-   -enc_layers 1 \
-   -dec_layers 1 \
+   -enc_layers 3 \
+   -dec_layers 3 \
    -rnn_size 500 \
    -src_word_vec_size 500 \
    -tgt_word_vec_size 500 \
