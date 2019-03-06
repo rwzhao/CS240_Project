@@ -15,6 +15,7 @@ rm -rf log
 mkdir log
 
 python3 train.py -data datasets/webnlg_tensor -save_model webnlg_model/webnlg-model \
+   -gpu_ranks 0 \
    -enc_layers 1 \
    -dec_layers 1 \
    -rnn_size 500 \
