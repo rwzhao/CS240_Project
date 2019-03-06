@@ -9,18 +9,30 @@ python3 preprocess.py \
     -valid_tgt datasets/dev.tgt \
     -save_data datasets/webnlg_tensor
 
-rm -rf webnlg_model*
+rm -rf webnlg_model/*
+
+rm -rf log
+mkdir log
 
 python3 train.py -data datasets/webnlg_tensor -save_model webnlg_model/webnlg-model \
-   -enc_layers 1
-   -dec_layers 1
-   -rnn_size 500
+   -enc_layers 1 \
+   -dec_layers 1 \
+   -rnn_size 500 \
    -src_word_vec_size 500 \
    -tgt_word_vec_size 500 \
    -rnn_type LSTM \
-   -train_steps 30000 \
-   -valid_steps 5000 \
-   -log_file log.txt
+   -train_steps 100 \
+   -valid_steps 50 \
+   -log_file log/log.txt
 
-# python3 translate.py -model webnlg_model/webnlg-model_acc_XX.XX_ppl_XXX.XX_eX.pt \
-#   -src datasets/test.src -output pred.txt -replace_unk -verbose
+rm -rf predict
+mkdir predict
+
+python3 translate.py -model webnlg_model/webnlg-model_step_100.pt \
+  -src datasets/test.src -output predict/pred.txt -replace_unk -verbose
+
+
+python3 ../rdf2text/relex_predictions.py \
+  -pred predict/pred.txt \
+  -relex datasets/test.relex \
+  -output predict/pred.relex

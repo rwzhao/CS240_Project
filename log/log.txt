@@ -1,0 +1,55 @@
+[2019-03-06 11:04:03,575 INFO]  * src vocab size = 426
+[2019-03-06 11:04:03,575 INFO]  * tgt vocab size = 3055
+[2019-03-06 11:04:03,575 INFO] Building model...
+[2019-03-06 11:04:03,695 INFO] NMTModel(
+  (encoder): RNNEncoder(
+    (embeddings): Embeddings(
+      (make_embedding): Sequential(
+        (emb_luts): Elementwise(
+          (0): Embedding(426, 500, padding_idx=1)
+        )
+      )
+    )
+    (rnn): LSTM(500, 500, dropout=0.3)
+  )
+  (decoder): InputFeedRNNDecoder(
+    (embeddings): Embeddings(
+      (make_embedding): Sequential(
+        (emb_luts): Elementwise(
+          (0): Embedding(3055, 500, padding_idx=1)
+        )
+      )
+    )
+    (dropout): Dropout(p=0.3)
+    (rnn): StackedLSTM(
+      (dropout): Dropout(p=0.3)
+      (layers): ModuleList(
+        (0): LSTMCell(1000, 500)
+      )
+    )
+    (attn): GlobalAttention(
+      (linear_in): Linear(in_features=500, out_features=500, bias=False)
+      (linear_out): Linear(in_features=1000, out_features=500, bias=False)
+    )
+  )
+  (generator): Sequential(
+    (0): Linear(in_features=500, out_features=3055, bias=True)
+    (1): Cast()
+    (2): LogSoftmax()
+  )
+)
+[2019-03-06 11:04:03,695 INFO] encoder: 2217000
+[2019-03-06 11:04:03,695 INFO] decoder: 6812055
+[2019-03-06 11:04:03,696 INFO] * number of parameters: 9029055
+[2019-03-06 11:04:03,697 INFO] Starting training on CPU, could be very slow
+[2019-03-06 11:04:03,697 INFO] Start training loop and validate every 50 steps...
+[2019-03-06 11:04:03,854 INFO] Loading dataset from datasets/webnlg_tensor.train.0.pt, number of examples: 17969
+[2019-03-06 11:04:51,842 INFO] Step 50/  100; acc:   8.35; ppl: 297.49; xent: 5.70; lr: 1.00000; 1133/1287 tok/s;     48 sec
+[2019-03-06 11:04:51,850 INFO] Loading dataset from datasets/webnlg_tensor.valid.0.pt, number of examples: 872
+[2019-03-06 11:04:56,399 INFO] Validation perplexity: 130.82
+[2019-03-06 11:04:56,400 INFO] Validation accuracy: 15.7682
+[2019-03-06 11:05:41,459 INFO] Step 100/  100; acc:  15.72; ppl: 121.85; xent: 4.80; lr: 1.00000; 1054/1160 tok/s;     98 sec
+[2019-03-06 11:05:41,466 INFO] Loading dataset from datasets/webnlg_tensor.valid.0.pt, number of examples: 872
+[2019-03-06 11:05:46,073 INFO] Validation perplexity: 69.4593
+[2019-03-06 11:05:46,073 INFO] Validation accuracy: 19.1889
+[2019-03-06 11:05:46,073 INFO] Saving checkpoint webnlg_model/webnlg-model_step_100.pt
