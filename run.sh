@@ -21,14 +21,14 @@ python3 train.py -data datasets/webnlg_tensor -save_model webnlg_model/webnlg-mo
    -src_word_vec_size 500 \
    -tgt_word_vec_size 500 \
    -rnn_type LSTM \
-   -train_steps 100 \
-   -valid_steps 50 \
+   -train_steps 30000 \
+   -valid_steps 5000 \
    -log_file log/log.txt
 
 rm -rf predict
 mkdir predict
 
-python3 translate.py -model webnlg_model/webnlg-model_step_100.pt \
+python3 translate.py -model webnlg_model/webnlg-model_step_30000.pt \
   -src datasets/test.src -output predict/pred.txt -replace_unk -verbose
 
 
